@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">KotlinBaslangic</string>
+    <string name="t_kla">Tıkla</string>
+    <string name="button">Button</string>
+</resources>
