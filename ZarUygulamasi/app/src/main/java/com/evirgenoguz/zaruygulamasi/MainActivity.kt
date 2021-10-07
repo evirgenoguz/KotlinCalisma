@@ -12,23 +12,44 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var baslaTusu: Button = findViewById(R.id.baslangic)
-        var yaziGoster: TextView = findViewById(R.id.textView)
-        var zarGoster: ImageView = findViewById(R.id.imageView)
+        var rollButton: Button = findViewById(R.id.roll)
 
-        baslaTusu.setOnClickListener {
+        rollButton.setOnClickListener {
 
-            var rastgele = (1..6).random()
+            //val toast = Toast.makeText(this, "Dice Rolled!", Toast.LENGTH_LONG)
+            //toast.show()
 
-            //Toast.makeText(this, "Tuşa Basıldı", Toast.LENGTH_SHORT).show()
-            yaziGoster.text = rastgele.toString()
+            //val resultTextView: TextView = findViewById(R.id.textView)
+            //resultTextView.text = "6"
 
-            when(rastgele){
-                1 -> zarGoster.setImageResource(R.)
+            rollDice()
 
-            }
 
         }
 
     }
+
+    private fun rollDice() {
+        val dice = Dice(6)
+        val diceRoll = dice.roll()
+        val diceRoll2 = dice.roll()
+        val resultTextView2: TextView = findViewById(R.id.textView2)
+        val resultTextView: TextView = findViewById(R.id.textView)
+        resultTextView.text = diceRoll.toString()
+        resultTextView2.text = diceRoll2.toString()
+
+        var sum: Int = diceRoll+diceRoll2
+        val sumTextView: TextView = findViewById(R.id.textView3)
+        sumTextView.text = sum.toString()
+
+
+    }
+}
+
+class Dice(val numSides: Int) {
+
+    fun roll(): Int {
+        return (1..numSides).random()
+    }
+
 }
