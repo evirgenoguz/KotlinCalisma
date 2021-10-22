@@ -33,7 +33,7 @@ class TahminFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.tahminButton.setOnClickListener {
-            findNavController().navigate(R.id.tahminToSonuc)
+             findNavController().navigate(R.id.tahminToSonuc)
         }
     }
 
