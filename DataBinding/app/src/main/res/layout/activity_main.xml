@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="mainActivityObjesi"
+            type="com.evirgenoguz.databinding.MainActivity" />
+        
+        <variable
+            name="ortalamaSonuc"
+            type="String" />
+
+        <import type="android.view.View"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+
+        <EditText
+            android:id="@+id/ilkSayiEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/ikinciSayiEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="İlk Sayı" />
+
+        <EditText
+            android:id="@+id/ikinciSayiEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonOrtalama"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ilkSayiEditText"
+            tools:text="İkinci Sayı" />
+
+        <TextView
+            android:id="@+id/textViewSonuc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonOrtalama"
+            tools:text="Sonuc"
+            android:text="@{ortalamaSonuc}"
+            android:textColor="@{Integer.parseInt(ortalamaSonuc) > 15 ? @color/teal_200 : @color/purple_200}"
+            android:visibility="@{Integer.parseInt(ortalamaSonuc) > 20 ? View.INVISIBLE : View.VISIBLE}"/>
+
+        <Button
+            android:id="@+id/buttonOrtalama"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ortalama Al"
+            app:layout_constraintBottom_toTopOf="@+id/textViewSonuc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ikinciSayiEditText"
+
+            android:onClick="@{() -> mainActivityObjesi.ortalamaHesap(ilkSayiEditText.getText().toString(), ikinciSayiEditText.getText().toString())}"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
+
