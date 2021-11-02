@@ -4,11 +4,17 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.evirgenoguz.superkahramankitabi.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //Veri Hazırlığı
 
@@ -29,7 +35,14 @@ class MainActivity : AppCompatActivity() {
         kahramanGorselleri.add(spidermanBitmap)
         kahramanGorselleri.add(supermanBitmap)
 
+        //ADapter
+
+        val layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = layoutManager
+
+
         val adapter = RecyclerAdapter(kahramanIsimleri, kahramanGorselleri)
+        binding.recyclerView.adapter = adapter
 
     }
 }

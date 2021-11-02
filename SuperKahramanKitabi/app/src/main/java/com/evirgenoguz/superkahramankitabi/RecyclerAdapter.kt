@@ -9,7 +9,7 @@ import com.evirgenoguz.superkahramankitabi.databinding.RecyclerRowBinding
 
 class RecyclerAdapter(val kahramanListesi: ArrayList<String>, val kahramanGorselleri: ArrayList<Bitmap>): RecyclerView.Adapter<RecyclerAdapter.SuperKahramanVH>() {
 
-    class SuperKahramanVH(recyclerRowBinding: RecyclerRowBinding): RecyclerView.ViewHolder(recyclerRowBinding.root){}
+    class SuperKahramanVH(val recyclerRowBinding: RecyclerRowBinding): RecyclerView.ViewHolder(recyclerRowBinding.root){}
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -21,9 +21,9 @@ class RecyclerAdapter(val kahramanListesi: ArrayList<String>, val kahramanGorsel
     }
 
     override fun onBindViewHolder(holder: SuperKahramanVH, position: Int) {
-        val kahraman = kahramanListesi[position]
 
-        holder.recyclerRowBinding
+        holder.recyclerRowBinding.recyclerTextView.text = kahramanListesi.get(position)
+
     }
 
     override fun getItemCount(): Int {
