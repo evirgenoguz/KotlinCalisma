@@ -1,7 +1,5 @@
 package com.evirgenoguz.superkahramankitabi
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         //Verimsiz Tanımlamalar
 
+        /*
         val batmanBitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.batman)
         val spidermanBitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.spiderman)
         val supermanBitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.superman)
@@ -35,13 +34,26 @@ class MainActivity : AppCompatActivity() {
         kahramanGorselleri.add(spidermanBitmap)
         kahramanGorselleri.add(supermanBitmap)
 
+        */
+
+        //Verimli Tanımlamalar
+        var superKahramanDrawableListesi = ArrayList<Int>()
+        val batmanDrawableId = R.drawable.batman
+        superKahramanDrawableListesi.add(batmanDrawableId)
+
+        val spidermanDrawableId = R.drawable.spiderman
+        superKahramanDrawableListesi.add(spidermanDrawableId)
+
+        val supermanDrawableId = R.drawable.superman
+        superKahramanDrawableListesi.add(supermanDrawableId)
+
         //ADapter
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
 
 
-        val adapter = RecyclerAdapter(kahramanIsimleri, kahramanGorselleri)
+        val adapter = RecyclerAdapter(kahramanIsimleri, superKahramanDrawableListesi)
         binding.recyclerView.adapter = adapter
 
     }
