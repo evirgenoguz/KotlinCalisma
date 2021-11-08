@@ -52,6 +52,15 @@ class TarifFragment : Fragment() {
 
     fun kaydet(view: View){
         //SQLite'a Kaydetme
+        var yemekIsmi = binding.yemekAdiText.text.toString()
+        val yemekMalzemeleri = binding.yemekMalzemeText.text.toString()
+
+
+        if (secilenBitmap != null){
+            val kucukBitmap = kucukBitmapOlustur(secilenBitmap!!, 300)
+        }
+
+
     }
 
     fun gorselSec(view: View){
@@ -110,6 +119,30 @@ class TarifFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    //Bu fonksiyonu butun uygulamalarda kullanabiliriz bitmap boyutu küçültmek için
+    fun kucukBitmapOlustur(kullanicininSectigiBitmap: Bitmap, maximumBoyut: Int) : Bitmap{
 
+        var width = kullanicininSectigiBitmap.width
+        var height = kullanicininSectigiBitmap.height
+
+        val bitmapOrani: Double = width.toDouble() / height.toDouble()
+
+        if (bitmapOrani > 1){
+            //görsel yatay
+            width = maximumBoyut
+            val kisaltilmişHeight = width / bitmapOrani
+            height = kisaltilmişHeight.toInt()
+
+
+
+        } else {
+            //gorsel dikey
+            height = maximumBoyut
+            val kisaltilmişWidth = height * bitmapOrani
+            width = kisaltilmişWidth.toInt()
+        }
+
+        return Bitmap.createScaledBitmap(kullanicininSectigiBitmap, width, height,true)
+    }
 
 }
