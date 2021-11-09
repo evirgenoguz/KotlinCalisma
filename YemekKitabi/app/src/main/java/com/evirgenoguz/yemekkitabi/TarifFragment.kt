@@ -2,6 +2,7 @@ package com.evirgenoguz.yemekkitabi
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -15,7 +16,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
 import com.evirgenoguz.yemekkitabi.databinding.FragmentTarifBinding
+import java.io.ByteArrayOutputStream
 import java.lang.Exception
 
 
@@ -33,6 +36,8 @@ class TarifFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentTarifBinding.inflate(inflater, container, false)
         return binding.root
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,11 +47,14 @@ class TarifFragment : Fragment() {
             //Atil hocanın gorselSeç metodu burada olacak
             buttonKaydet.setOnClickListener{
                 println("Tıklandı")
+                kaydet(view)
             }
             imageViewYemekResmi.setOnClickListener {
                 gorselSec(it)
             }
         }
+
+        sqlVeriAlma()
 
     }
 
@@ -58,6 +66,32 @@ class TarifFragment : Fragment() {
 
         if (secilenBitmap != null){
             val kucukBitmap = kucukBitmapOlustur(secilenBitmap!!, 300)
+
+            val outputStream = ByteArrayOutputStream()
+            kucukBitmap.compress(Bitmap.CompressFormat.PNG, 50, outputStream)
+            val byteDizisi = outputStream.toByteArray()
+
+            try {
+                context.let {
+                    val database = it!!.openOrCreateDatabase("Yemekler", Context.MODE_PRIVATE, null)
+                    database.execSQL("Create Table If Not Exists yemekler (id Integer Primary Key, yemekismi Varchar, yemekmalzemesi Varchar, gorsel Blob)")
+
+                    val sqlString = "Insert Into yemekler (yemekismi, yemekmalzemesi, gorsel) Values (?, ?, ?)"
+                    val statement = database.compileStatement(sqlString)
+                    statement.bindString(1, yemekIsmi)
+                    statement.bindString(2, yemekMalzemeleri)
+                    statement.bindBlob(3, byteDizisi)
+                    statement.execute()
+                }
+
+
+            } catch (e: Exception){
+                e.printStackTrace()
+            }
+
+            val action = TarifFragmentDirections.actionTarifFragmentToListeFragment()
+            Navigation.findNavController(view).navigate(action)
+
         }
 
 
@@ -145,4 +179,30 @@ class TarifFragment : Fragment() {
         return Bitmap.createScaledBitmap(kullanicininSectigiBitmap, width, height,true)
     }
 
+
+    fun sqlVeriAlma(){
+        try {
+
+            activity?.let {
+                val database = it.openOrCreateDatabase("Yemekler", Context.MODE_PRIVATE, null)
+                val cursor = database.rawQuery("Select * From yemekler", null)
+
+                val yemekIsmiIndex = cursor.getColumnIndex("yemekismi")
+                val yemekIdIndex = cursor.getColumnIndex("id")
+
+                while (cursor.moveToNext()){
+
+                    println("Yemek: ${cursor.getString(yemekIsmiIndex)}")
+                    println("id: ${cursor.getInt(yemekIdIndex)}")
+
+                    cursor.close()
+                }
+
+            }
+
+
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+    }
 }
