@@ -6,11 +6,11 @@ class Gitar: Enstruman, Dekorasyon {
     var elektro: Boolean? = null
 
     override var oda: String
-        get() = TODO("Not yet implemented")
+        get() = "Salon"
         set(value) {}
 
     override fun bilgFonk() {
-        TODO("Not yet implemented")
+        println("bilgi Fonksiyonu")
     }
 
 

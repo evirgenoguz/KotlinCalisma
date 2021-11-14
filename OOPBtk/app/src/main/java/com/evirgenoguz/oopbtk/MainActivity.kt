@@ -35,6 +35,24 @@ class MainActivity : AppCompatActivity() {
 
         println("-----Abstraction & Interface-----")
         kullanici.insanFonksiyonu()
+        var gitar = Gitar()
+        gitar.marka = "Gitar Markasi"
+        gitar.elektro = true
+        gitar.bilgFonk()
+        println(gitar.oda)
 
+
+        println("-----Lambda Gösterimi (Expressions)-----")
+        val yazdigimiYazdirLambda = { verilenString: String -> println(verilenString) }
+
+        yazdigimiYazdirLambda("Test Lambda")
+
+        val carpmaIslemiLambda = {a: Int, b: Int -> a * b}
+        println(carpmaIslemiLambda(3, 5))
     }
+
+    fun yazdigimiYazdir(string: String){
+        println(string)
+    }
+
 }
