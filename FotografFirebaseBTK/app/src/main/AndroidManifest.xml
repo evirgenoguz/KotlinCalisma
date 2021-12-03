@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FotografFirebaseBTK">
         <activity
+            android:name=".FotografPaylasmaActivity"
+            android:exported="false" />
+        <activity
             android:name=".HaberlerActivity"
             android:exported="false" />
         <activity
