@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
+    <TextView
+        android:id="@+id/recylerRowKullaniciEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kullanici email"
+        android:textSize="20sp"
+        android:layout_margin="5dp"
+        android:textColor="#53A5A3"/>
+
+    <ImageView
+        android:id="@+id/recyclerRowImageView"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:layout_margin="5dp"
+        />
+
+    <TextView
+        android:id="@+id/recyclerRowKullaniciYorum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:text="Kullanici yorum"
+        android:textColor="#53A5A3"
+        android:textSize="16sp" />
 </LinearLayout>

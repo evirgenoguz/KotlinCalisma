@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.evirgenoguz.fotograffirebasebtk.databinding.ActivityHaberlerBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,6 +17,7 @@ class HaberlerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHaberlerBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var database : FirebaseFirestore
+    private lateinit var recyclerViewAdapter: HaberRecyclerAdapter
 
     var postListesi = ArrayList<Post>()
 
@@ -28,6 +30,11 @@ class HaberlerActivity : AppCompatActivity() {
         database = FirebaseFirestore.getInstance()
 
         verileriAl()
+
+        var layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = layoutManager
+        recyclerViewAdapter = HaberRecyclerAdapter(postListesi)
+        binding.recyclerView.adapter = recyclerViewAdapter
     }
 
 
@@ -78,6 +85,7 @@ class HaberlerActivity : AppCompatActivity() {
                             postListesi.add(indirilenPost)
 
                         }
+                        recyclerViewAdapter.notifyDataSetChanged()
                     }
                 }
             }
