@@ -5,13 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.evirgenoguz.fotograffirebasebtk.databinding.ActivityHaberlerBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class HaberlerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHaberlerBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var database : FirebaseFirestore
+
+    var postListesi = ArrayList<Post>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +25,9 @@ class HaberlerActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
+        database = FirebaseFirestore.getInstance()
+
+        verileriAl()
     }
 
 
@@ -49,5 +58,30 @@ class HaberlerActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    fun verileriAl(){
+        database.collection("Post").orderBy("tarih", Query.Direction.DESCENDING).addSnapshotListener { snapshot, exception ->
+            if (exception != null){
+                Toast.makeText(this, exception.localizedMessage, Toast.LENGTH_LONG).show()
+            } else {
+                if (snapshot != null){
+                    if (!snapshot.isEmpty){
+                        val documents = snapshot.documents
+
+                        postListesi.clear()
+
+                        for (document in documents){
+                            val kullaniciEmail = document.get("kullaniciemail") as String
+                            val kullaniciYorum = document.get("kullaniciyorum") as String
+                            val gorselUrl = document.get("gorselurl") as String
+
+                            val indirilenPost = Post(kullaniciEmail, kullaniciYorum, gorselUrl)
+                            postListesi.add(indirilenPost)
+
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 }

@@ -6,4 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".FotografPaylasmaActivity">
 
+    <ImageView
+        android:id="@+id/imageViewGorselEkle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="27dp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextYorum"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_add_a_photo" />
+
+    <EditText
+        android:id="@+id/editTextYorum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="56dp"
+        android:ems="10"
+        android:hint="Açıklama ekle"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonPaylas"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewGorselEkle"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewGorselEkle" />
+
+    <Button
+        android:id="@+id/buttonPaylas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="193dp"
+        android:text="Paylaş"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextYorum" />
 </androidx.constraintlayout.widget.ConstraintLayout>

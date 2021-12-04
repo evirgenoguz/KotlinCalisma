@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/KotlinProjects/FotografFirebaseBTK/app/src/main/res/layout/activity_fotograf_paylasma.xml" value="0.1411764705882353" />
         <entry key="..\:/KotlinProjects/FotografFirebaseBTK/app/src/main/res/layout/activity_haberler.xml" value="0.36666666666666664" />
         <entry key="..\:/KotlinProjects/FotografFirebaseBTK/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/KotlinProjects/FotografFirebaseBTK/app/src/main/res/layout/recycler_row.xml" value="0.1" />
         <entry key="..\:/KotlinProjects/FotografFirebaseBTK/app/src/main/res/menu/secenekler_menusu.xml" value="0.1" />
       </map>
     </option>
