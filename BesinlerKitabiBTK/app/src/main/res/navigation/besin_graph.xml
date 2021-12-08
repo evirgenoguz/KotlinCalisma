@@ -11,6 +11,10 @@
         <action
             android:id="@+id/action_besinDetayiFragment_to_besinListesiFragment"
             app:destination="@id/besinListesiFragment" />
+        <argument
+            android:name="besinId"
+            app:argType="integer"
+             />
     </fragment>
     <fragment
         android:id="@+id/besinListesiFragment"
