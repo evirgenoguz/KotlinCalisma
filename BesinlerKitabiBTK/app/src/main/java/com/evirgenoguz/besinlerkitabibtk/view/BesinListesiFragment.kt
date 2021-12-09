@@ -1,4 +1,4 @@
-package com.evirgenoguz.besinlerkitabibtk
+package com.evirgenoguz.besinlerkitabibtk.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

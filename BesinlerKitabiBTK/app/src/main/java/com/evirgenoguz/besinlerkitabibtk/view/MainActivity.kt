@@ -1,4 +1,4 @@
-package com.evirgenoguz.besinlerkitabibtk
+package com.evirgenoguz.besinlerkitabibtk.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
