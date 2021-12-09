@@ -3,10 +3,12 @@ package com.evirgenoguz.besinlerkitabibtk.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.evirgenoguz.besinlerkitabibtk.R
 import com.evirgenoguz.besinlerkitabibtk.databinding.BesinRecyclerRowBinding
 import com.evirgenoguz.besinlerkitabibtk.model.Besin
+import com.evirgenoguz.besinlerkitabibtk.view.BesinListesiFragmentDirections
 
 class BesinRecyclerAdapter(val besinListesi: ArrayList<Besin>): RecyclerView.Adapter<BesinRecyclerAdapter.BesinViewHolder>() {
 
@@ -24,6 +26,13 @@ class BesinRecyclerAdapter(val besinListesi: ArrayList<Besin>): RecyclerView.Ada
         holder.besinViewHolderBinding.besinIsmiRVTextView.text = besinListesi.get(position).besinIsim.toString()
         holder.besinViewHolderBinding.besinKaloriRVTextView.text = besinListesi.get(position).besinKalori.toString()
         //Gorsel kısmı eklenecek Glide ile
+
+        holder.itemView.setOnClickListener {
+            val action = BesinListesiFragmentDirections.actionBesinListesiFragmentToBesinDetayiFragment(0)
+            Navigation.findNavController(it).navigate(action)
+        }
+
+
     }
 
     override fun getItemCount(): Int {

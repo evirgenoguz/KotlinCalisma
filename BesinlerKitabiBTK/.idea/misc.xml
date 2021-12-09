@@ -3,10 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/KotlinProjects/BesinlerKitabiBTK/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/KotlinProjects/BesinlerKitabiBTK/app/src/main/res/layout/besin_recycler_row.xml" value="0.33" />
+        <entry key="..\:/KotlinProjects/BesinlerKitabiBTK/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/KotlinProjects/BesinlerKitabiBTK/app/src/main/res/layout/besin_recycler_row.xml" value="0.25" />
         <entry key="..\:/KotlinProjects/BesinlerKitabiBTK/app/src/main/res/layout/fragment_besin_detayi.xml" value="0.33" />
-        <entry key="..\:/KotlinProjects/BesinlerKitabiBTK/app/src/main/res/layout/fragment_besin_listesi.xml" value="0.33" />
+        <entry key="..\:/KotlinProjects/BesinlerKitabiBTK/app/src/main/res/layout/fragment_besin_listesi.xml" value="0.22" />
       </map>
     </option>
   </component>
