@@ -8,8 +8,6 @@ import java.util.*
 
 @Entity
 data class Besin(
-    @PrimaryKey(autoGenerate = true)
-    val uuid: Int?,
 
     @ColumnInfo(name = "isim")
     @SerializedName("isim")
@@ -36,4 +34,6 @@ data class Besin(
     val besinGorsel: String?
     ) {
     //data classı oluşturunca buraya gerek yok sanırım.
+    @PrimaryKey(autoGenerate = true)
+    var uuid: Int = 0
 }

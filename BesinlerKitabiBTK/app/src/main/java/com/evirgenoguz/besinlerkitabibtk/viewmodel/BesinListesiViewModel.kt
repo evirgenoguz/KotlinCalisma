@@ -1,11 +1,13 @@
 package com.evirgenoguz.besinlerkitabibtk.viewmodel
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.evirgenoguz.besinlerkitabibtk.model.Besin
 import com.evirgenoguz.besinlerkitabibtk.servis.BesinAPIServis
 import com.evirgenoguz.besinlerkitabibtk.servis.BesinDatabase
+import com.evirgenoguz.besinlerkitabibtk.util.OzelSharedPreferences
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -20,10 +22,27 @@ class BesinListesiViewModel(application: Application): BaseViewModel(application
 
     private val besinApiServis = BesinAPIServis()
     private val disposable = CompositeDisposable()
-
+    private val ozelSharedPreferences = OzelSharedPreferences(getApplication())
+    private var guncellemeZamani = 10 * 60 * 1000 * 1000 * 1000L
 
     fun refreshData() {
-        verileriInternettenAl()
+        val kaydedilmeZamani = ozelSharedPreferences.zamaniAl()
+        if (kaydedilmeZamani != null && kaydedilmeZamani  != 0L && System.nanoTime() - kaydedilmeZamani < guncellemeZamani){
+            //sqlite çek
+            verileriSQLitetanAl()
+        }
+        else {
+            verileriInternettenAl()
+        }
+
+    }
+
+    private fun verileriSQLitetanAl(){
+        launch {
+            val besinListesi = BesinDatabase(getApplication()).besinDao().getAllBesin()
+            besinleriGoster(besinListesi)
+            Toast.makeText(getApplication(), "Besinleri Roomdan Aldık", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun verileriInternettenAl() {
@@ -37,6 +56,7 @@ class BesinListesiViewModel(application: Application): BaseViewModel(application
                     override fun onSuccess(t: List<Besin>) {
                         //Başarılı Olursa
                         sqliteSakla(t)
+                        Toast.makeText(getApplication(), "Besinleri İnternetten Aldık", Toast.LENGTH_LONG).show()
                     }
 
                     override fun onError(e: Throwable) {
@@ -48,6 +68,7 @@ class BesinListesiViewModel(application: Application): BaseViewModel(application
 
                 })
         )
+
     }
 
     private fun besinleriGoster(besinlerListesi: List<Besin>){
@@ -68,6 +89,7 @@ class BesinListesiViewModel(application: Application): BaseViewModel(application
             }
             besinleriGoster(besinlerListesi)
         }
+        ozelSharedPreferences.zamaniKaydet(System.nanoTime())
     }
 
 

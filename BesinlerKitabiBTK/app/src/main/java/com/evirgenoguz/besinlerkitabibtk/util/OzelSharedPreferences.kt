@@ -2,11 +2,13 @@ package com.evirgenoguz.besinlerkitabibtk.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 
 class OzelSharedPreferences {
 
     companion object{
+        private val ZAMAN = "zaman"
         private var sharedPreferences: SharedPreferences? = null
 
         @Volatile private var instance: OzelSharedPreferences? = null
@@ -26,7 +28,11 @@ class OzelSharedPreferences {
     }
 
     fun zamaniKaydet(zaman: Long){
-        
+        sharedPreferences?.edit(commit = true){
+            putLong(ZAMAN, zaman)
+        }
     }
+
+    fun zamaniAl() = sharedPreferences?.getLong(ZAMAN, 0)
 
 }
