@@ -1,16 +1,19 @@
 package com.evirgenoguz.besinlerkitabibtk.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.evirgenoguz.besinlerkitabibtk.model.Besin
 import com.evirgenoguz.besinlerkitabibtk.servis.BesinAPIServis
+import com.evirgenoguz.besinlerkitabibtk.servis.BesinDatabase
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
-class BesinListesiViewModel : ViewModel() {
+class BesinListesiViewModel(application: Application): BaseViewModel(application) {
     val besinler = MutableLiveData<List<Besin>>()
     val besinHataMesaji = MutableLiveData<Boolean>()
     val besinYukleniyor = MutableLiveData<Boolean>()
@@ -20,15 +23,6 @@ class BesinListesiViewModel : ViewModel() {
 
 
     fun refreshData() {
-        /*val muz = Besin("Muz", "10", "5", "5", "2", "www.test.com")
-        val elma = Besin("Elma", "31", "5", "5", "2", "www.test.com")
-        val kivi = Besin("Kivi", "69", "5", "5", "2", "www.test.com")
-        //üst tarafta normalde verileri internetten çekeceğiz
-        val besinListesi = arrayListOf<Besin>(muz, elma, kivi)
-
-        besinler.value = besinListesi
-        besinHataMesaji.value = false
-        besinYukleniyor.value = false*/
         verileriInternettenAl()
     }
 
@@ -42,9 +36,7 @@ class BesinListesiViewModel : ViewModel() {
                 .subscribeWith(object : DisposableSingleObserver<List<Besin>>() {
                     override fun onSuccess(t: List<Besin>) {
                         //Başarılı Olursa
-                        besinler.value = t
-                        besinHataMesaji.value = false
-                        besinYukleniyor.value = false
+                        sqliteSakla(t)
                     }
 
                     override fun onError(e: Throwable) {
@@ -57,5 +49,28 @@ class BesinListesiViewModel : ViewModel() {
                 })
         )
     }
+
+    private fun besinleriGoster(besinlerListesi: List<Besin>){
+        besinler.value = besinlerListesi
+        besinHataMesaji.value = false
+        besinYukleniyor.value = false
+    }
+
+    private fun sqliteSakla(besinlerListesi: List<Besin>){
+        launch {
+            val dao = BesinDatabase(getApplication()).besinDao()
+            dao.deleteAllBesin()
+            val uuidListesi = dao.insertAll(*besinlerListesi.toTypedArray())
+            var i = 0
+            while (i < besinlerListesi.size){
+                besinlerListesi[i].uuid = uuidListesi[i].toInt()
+                i = i + 1
+            }
+            besinleriGoster(besinlerListesi)
+        }
+    }
+
+
+
 
 }

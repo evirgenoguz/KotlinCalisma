@@ -11,8 +11,8 @@ class BesinDetayiViewModel : ViewModel() {
 
     fun roomVerisiniAl(){
 
-        val muz = Besin("Muz", "10", "5", "5", "2", "www.test.com")
-        besinLiveData.value = muz
+        //val muz = Besin("Muz", "10", "5", "5", "2", "www.test.com")
+        //besinLiveData.value = muz
     }
 
 }
