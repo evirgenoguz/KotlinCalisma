@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.evirgenoguz.besinlerkitabibtk.R
 import com.evirgenoguz.besinlerkitabibtk.databinding.BesinRecyclerRowBinding
 import com.evirgenoguz.besinlerkitabibtk.model.Besin
+import com.evirgenoguz.besinlerkitabibtk.util.gorselIndir
+import com.evirgenoguz.besinlerkitabibtk.util.placeholderYap
 import com.evirgenoguz.besinlerkitabibtk.view.BesinListesiFragmentDirections
 
 class BesinRecyclerAdapter(val besinListesi: ArrayList<Besin>): RecyclerView.Adapter<BesinRecyclerAdapter.BesinViewHolder>() {
@@ -25,6 +27,7 @@ class BesinRecyclerAdapter(val besinListesi: ArrayList<Besin>): RecyclerView.Ada
     override fun onBindViewHolder(holder: BesinViewHolder, position: Int) {
         holder.besinViewHolderBinding.besinIsmiRVTextView.text = besinListesi.get(position).besinIsim.toString()
         holder.besinViewHolderBinding.besinKaloriRVTextView.text = besinListesi.get(position).besinKalori.toString()
+        holder.besinViewHolderBinding.besinImageView.gorselIndir(besinListesi.get(position).besinGorsel, placeholderYap(holder.itemView.context))
         //Gorsel kısmı eklenecek Glide ile
 
         holder.itemView.setOnClickListener {

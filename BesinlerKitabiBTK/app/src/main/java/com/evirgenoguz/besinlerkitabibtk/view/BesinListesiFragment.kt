@@ -47,6 +47,17 @@ class BesinListesiFragment : Fragment() {
         binding.besinListesiRecyclerView.adapter = recyclerBesinAdapter
 
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            with(binding){
+                besinYukleniyorProgressBar.visibility = View.VISIBLE
+                hataTextView.visibility = View.GONE
+                besinListesiRecyclerView.visibility = View.GONE
+                swipeRefreshLayout.isRefreshing = false
+            }
+            besinListesiViewModel.refreshData()
+
+        }
+
         observeLiveData()
     }
 
